@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		5E555C0D2413F4C50049A1A2 /* SearchWithSpotlight.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* SearchWithSpotlight.m */; };
-		F4FF95D7245B92E800C19C63 /*  SearchWithSpotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /*  SearchWithSpotlight.swift */; };
-
+		F4FF95D7245B92E800C19C63 /* SearchWithSpotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* SearchWithSpotlight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,11 +24,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libSearchWithSpotlight.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSearchWithSpotlight.a; sourceTree = BUILT_PRODUCTS_DIR; };
-
+		9BF34E72285F6EED000DFBB1 /* SearchWithSpotlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchWithSpotlight.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* SearchWithSpotlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWithSpotlight.m; sourceTree = "<group>"; };
-		F4FF95D5245B92E700C19C63 /* SearchWithSpotlight-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchWithSpotlight-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* SearchWithSpotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWithSpotlight.swift; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +51,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-
+				9BF34E72285F6EED000DFBB1 /* SearchWithSpotlight.h */,
 				F4FF95D6245B92E800C19C63 /* SearchWithSpotlight.swift */,
 				B3E7B5891CC2AC0600A0062D /* SearchWithSpotlight.m */,
-				F4FF95D5245B92E700C19C63 /* SearchWithSpotlight-Bridging-Header.h */,
-
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,10 +115,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				F4FF95D7245B92E800C19C63 /* SearchWithSpotlight.swift in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* SearchWithSpotlight.m in Sources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,11 +228,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SearchWithSpotlight;
 				SKIP_INSTALL = YES;
-
-				SWIFT_OBJC_BRIDGING_HEADER = "SearchWithSpotlight-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = SearchWithSpotlight.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Debug;
 		};
@@ -259,10 +247,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = SearchWithSpotlight;
 				SKIP_INSTALL = YES;
-
-				SWIFT_OBJC_BRIDGING_HEADER = "SearchWithSpotlight-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = SearchWithSpotlight.h;
 				SWIFT_VERSION = 5.0;
-
 			};
 			name = Release;
 		};
