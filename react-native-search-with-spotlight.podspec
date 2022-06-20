@@ -14,6 +14,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/mitsuharu/react-native-search-with-spotlight.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.requires_arc = true
 
   s.dependency "React-Core"
+  s.dependency 'AlamofireImage', '~> 4.2'
 end
