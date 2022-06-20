@@ -9,10 +9,14 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 #import <React/RCTRootView.h>
+#import <React/RCTVersion.h>
+#import <React/RCTEventDispatcher.h>
 
-@interface SearchWithSpotlight
+@interface SearchWithSpotlight : RCTEventEmitter <RCTBridgeModule>
 
 + (void)setup:(RCTBridge*)bridge;
 + (BOOL)handle:(NSUserActivity*)userActivity;
 
 @end
+
+
