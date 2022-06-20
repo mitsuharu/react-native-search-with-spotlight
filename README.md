@@ -2,7 +2,7 @@
 
 A React Native module to search with Spotlight for iOS.
 
-![react-native-search-with-spotlight](./README_images/Jun-20-2022 11-14-06.gif) 
+![react-native-search-with-spotlight](README_images/Jun-20-2022 11-14-06.gif) 
 
 ## Installation
 
