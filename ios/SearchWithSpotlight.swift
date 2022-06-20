@@ -3,7 +3,7 @@ import CoreSpotlight
 import Alamofire
 import AlamofireImage
 
-// RNへ送るListener name
+// React Native に送信される Listener name
 fileprivate enum SearchWithSpotlightListener: String, CaseIterable {
   case onSearchWithSpotlightRequest
 }
@@ -34,7 +34,7 @@ class SearchWithSpotlight: RCTEventEmitter {
       self.removeListeners(Double(SearchWithSpotlightListener.allCases.count))
     }
     
-    func getKeyWindow() -> UIWindow? {
+    private func getKeyWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
             return UIApplication.shared.windows.first { $0.isKeyWindow }
         } else {
@@ -158,7 +158,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
         let maxSubLength: Int = 100
         let loop = items.count/maxSubLength + 1
         let group = DispatchGroup()
-        let queue = DispatchQueue(label: "search_on_device.addSearchableItems")
+        let queue = DispatchQueue(label: "search_with_spotlight.addSearchableItems")
         for _ in 0..<loop{
           group.enter()
         }
@@ -181,7 +181,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
         }
         group.notify(queue: .main) {
             if let error = error{
-                reject("[SearchWithSpotlight.addSearchableItem]",
+                reject("SearchWithSpotlight#addSearchableItem",
                        error.localizedDescription,
                        error)
             }else{
@@ -197,7 +197,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
                                completion: @escaping (Error?) -> ()){
         var searchableItems = [CSSearchableItem]()
         let group = DispatchGroup()
-        let queue = DispatchQueue(label: "search_on_device_queue.registerItems",
+        let queue = DispatchQueue(label: "search_with_spotlight.registerItems",
                                   attributes: .concurrent)
         for _ in items{
             group.enter()
@@ -224,7 +224,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
         let searchableIndex = CSSearchableIndex.default()
         searchableIndex.deleteAllSearchableItems { (error) in
             if let error = error{
-                reject("[SearchWithSpotlight.deleteAll]",
+                reject("SearchWithSpotlight#deleteAll",
                        error.localizedDescription,
                        error)
             }else{
@@ -240,7 +240,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
         let searchableIndex = CSSearchableIndex.default()
         searchableIndex.deleteSearchableItems(withIdentifiers: identifiers) { (error) in
             if let error = error{
-                reject("[SearchWithSpotlight.deleteIdentifiers]",
+                reject("SearchWithSpotlight#deleteIdentifiers",
                        error.localizedDescription,
                        error)
             }else{
@@ -256,7 +256,7 @@ You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `ap
         let searchableIndex = CSSearchableIndex.default()
         searchableIndex.deleteSearchableItems(withDomainIdentifiers: domains) { (error) in
             if let error = error{
-                reject("[SearchWithSpotlight.deleteDomains]",
+                reject("SearchWithSpotlight#deleteDomains",
                        error.localizedDescription,
                        error)
             }else{
