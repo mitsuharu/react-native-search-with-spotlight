@@ -20,9 +20,8 @@ fileprivate class SearchItemKey {
 
 @objc(SearchWithSpotlight)
 class SearchWithSpotlight: RCTEventEmitter {
-    
+
     @objc public static let shared = SearchWithSpotlight()
-    var hasListeners:Bool = false
 
     override init() {
       super.init()
@@ -34,15 +33,7 @@ class SearchWithSpotlight: RCTEventEmitter {
     deinit {
       self.removeListeners(Double(SearchWithSpotlightListener.allCases.count))
     }
-        
-    override func startObserving() {
-        self.hasListeners = true
-    }
-
-    override func stopObserving() {
-        self.hasListeners = false
-    }
-
+    
     private func getKeyWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
             return UIApplication.shared.windows.first { $0.isKeyWindow }
@@ -60,35 +51,6 @@ class SearchWithSpotlight: RCTEventEmitter {
         }
         return rootView.bridge
     }
-    
-    /**
-     https://github.com/software-mansion/react-native-reanimated/blob/main/ios/native/REAInitializer.mm
-     */
-    private func setupTemp(bridge: RCTBridge? = nil){
-        guard let bridge = bridge else{
-            return
-        }
-        
-        let versions = RCTGetReactNativeVersion()
-        let rnVersion = versions?[RCTVersionMinor] as! Int
-        let obj = SearchWithSpotlight.shared
-        
-        let eventDispatcher = RCTEventDispatcher()
-        if rnVersion >= 66 {
-            let callableJSModules = RCTCallableJSModules();
-//            bridge.setValue(callableJSModules, forKey: "_callableJSModules")
-            callableJSModules.setBridge(bridge)
-            eventDispatcher.setValue(callableJSModules, forKey: "_callableJSModules")
-            eventDispatcher.setValue(bridge, forKey: "_bridge")
-            eventDispatcher.initialize()
-            obj.callableJSModules = callableJSModules
-            obj.bridge = bridge
-        }else{
-            obj.bridge = bridge
-        }
-        
-    }
-
 }
 
 // for iOS Native
@@ -102,19 +64,6 @@ extension SearchWithSpotlight{
         let obj = SearchWithSpotlight.shared
         obj.bridge = bridge
     }
-    
-    @objc(setupCallableJSModules:)
-    static public func setupCallableJSModules(callableJSModules: RCTCallableJSModules? = nil) {
-        
-        print("setupCallableJSModules \(callableJSModules !== nil)")
-        
-        guard let callableJSModules = callableJSModules else{
-            return
-        }
-        let obj = SearchWithSpotlight.shared
-        obj.callableJSModules = callableJSModules
-    }
-    
     
     @objc(handle:)
     static public func handle(_ userActivity: NSUserActivity) -> Bool {
@@ -146,9 +95,6 @@ extension SearchWithSpotlight {
         if self.bridge == nil {
             self.bridge = self.bridgeFromWindow()
         }
-
-        print("self.callableJSModules: \(self.callableJSModules !== nil), bridge: \(self.bridge != nil)")
-        print("hasListeners: \(self.hasListeners)")
         
         assert(self.bridge != nil, """
 Error when sending event: onSearchWithSpotlightRequest with body: (identifier: \(identifier ?? ""), query: \(query ?? "")).
@@ -156,8 +102,8 @@ Bridge in SearchWithSpotlight is nil. When use `sendEvent(withName:body:)`, brid
 You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `application:didFinishLaunchingWithOptions:`.
 """)
         
-        if self.hasListeners && self.bridge != nil && (identifier != nil || query != nil) {
-            sendEvent(withName: SearchWithSpotlightListener.onSearchWithSpotlightRequest.rawValue,
+        if self.bridge != nil && (identifier != nil || query != nil) {
+            self.sendEvent(withName: SearchWithSpotlightListener.onSearchWithSpotlightRequest.rawValue,
                            body: ["id": identifier, "query": query])
             return true
         }
