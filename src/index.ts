@@ -29,7 +29,7 @@ const searchWithSpotlight: SearchWithSpotlight =
   NativeModules.SearchWithSpotlight
 
 const Constants = {
-  onSearchWithSpotlightRequest: 'onSearchWithSpotlightRequest',
+  onSearchWithSpotlight: 'onSearchWithSpotlight',
 }
 const emitter = new NativeEventEmitter(NativeModules.SearchWithSpotlight)
 
@@ -83,7 +83,7 @@ export const addListener = Platform.select<
   (callback: Callback) => EventSubscription
 >({
   ios: (callback) =>
-    emitter.addListener(Constants.onSearchWithSpotlightRequest, callback),
+    emitter.addListener(Constants.onSearchWithSpotlight, callback),
   default: () => {
     throw Error(
       `Platform ${Platform.OS} doesn't support search-with-spotlight.`

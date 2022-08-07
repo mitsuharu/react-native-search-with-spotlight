@@ -3,9 +3,9 @@ import CoreSpotlight
 import Alamofire
 import AlamofireImage
 
-// React Native に送信される Listener name
+// React Native に送信される Listener
 fileprivate enum SearchWithSpotlightListener: String, CaseIterable {
-  case onSearchWithSpotlightRequest
+  case onSearchWithSpotlight
 }
 
 // constants
@@ -23,8 +23,10 @@ class SearchWithSpotlight: RCTEventEmitter {
 
     @objc public static let shared = SearchWithSpotlight()
 
-    var hasListeners:Bool = false
-    let sharedJsModule = RCTCallableJSModules()
+    private var hasListeners:Bool = false
+    
+    // RCTEventEmitter has already defined `weak callableJSModules`.
+    private let _callableJSModules = RCTCallableJSModules()
 
     override init() {
       super.init()
@@ -83,6 +85,18 @@ extension SearchWithSpotlight{
     }
 }
 
+// for React Native 0.68, Turbo modules
+extension SearchWithSpotlight {
+    
+    override func startObserving() {
+        hasListeners = true
+    }
+    
+    override func stopObserving() {
+        hasListeners = false
+    }
+}
+
 // for React Native
 extension SearchWithSpotlight {
     
@@ -95,12 +109,13 @@ extension SearchWithSpotlight {
     
     func sendIdentifierToReactNative(identifier: String? = nil,
                                      query: String? = nil) -> Bool {
+        if !hasListeners{
+            return false
+        }
+        
         if self.bridge == nil {
             self.bridge = self.bridgeFromWindow()
         }
-        
-        self.callableJSModules = sharedJsModule
-        self.callableJSModules.setBridge(self.bridge)
         
         assert(self.bridge != nil, """
 Error when sending event: onSearchWithSpotlightRequest with body: (identifier: \(identifier ?? ""), query: \(query ?? "")).
@@ -108,8 +123,11 @@ Bridge in SearchWithSpotlight is nil. When use `sendEvent(withName:body:)`, brid
 You shuold verify bridge value or use `+ (void)setup:(RCTBridge*)bridge;` at `application:didFinishLaunchingWithOptions:`.
 """)
         
+        self.callableJSModules = _callableJSModules
+        self.callableJSModules.setBridge(self.bridge)
+        
         if self.bridge != nil && (identifier != nil || query != nil) {
-            self.sendEvent(withName: SearchWithSpotlightListener.onSearchWithSpotlightRequest.rawValue,
+            self.sendEvent(withName: SearchWithSpotlightListener.onSearchWithSpotlight.rawValue,
                            body: ["id": identifier, "query": query])
             return true
         }
