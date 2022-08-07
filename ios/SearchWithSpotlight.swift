@@ -23,6 +23,9 @@ class SearchWithSpotlight: RCTEventEmitter {
 
     @objc public static let shared = SearchWithSpotlight()
 
+    var hasListeners:Bool = false
+    let sharedJsModule = RCTCallableJSModules()
+
     override init() {
       super.init()
       for listener in SearchWithSpotlightListener.allCases {
@@ -95,6 +98,9 @@ extension SearchWithSpotlight {
         if self.bridge == nil {
             self.bridge = self.bridgeFromWindow()
         }
+        
+        self.callableJSModules = sharedJsModule
+        self.callableJSModules.setBridge(self.bridge)
         
         assert(self.bridge != nil, """
 Error when sending event: onSearchWithSpotlightRequest with body: (identifier: \(identifier ?? ""), query: \(query ?? "")).
