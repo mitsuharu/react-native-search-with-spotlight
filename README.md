@@ -2,9 +2,15 @@
 
 A React Native module to search with Spotlight for iOS.
 
-![react-native-search-with-spotlight](README_images/Jun-20-2022 11-14-06.gif) 
+![react-native-search-with-spotlight](readme/sample.gif) 
+
+## Futures
+
+- It suports new architecture with React Native > 0.68.
+
 
 ## Installation
+
 
 ```sh
 yarn add https://github.com/mitsuharu/react-native-search-with-spotlight.git
@@ -28,9 +34,7 @@ You see `example` directory for details.
 ```typescript
 import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 
-SearchWithSpotlight.isSupported().then((result) => {
-	console.log(`[isSupported] ${result}`)
-})
+const isSupported = await SearchWithSpotlight.isSupported()
 ```
 
 ### iOS
