@@ -5,11 +5,11 @@ import {
   ScrollView,
   View,
   Text,
-  TouchableOpacity,
   EventSubscription,
 } from 'react-native'
 import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 import { useToast } from 'react-native-toast-notifications'
+import { Button } from './components/Button'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -34,31 +34,26 @@ const Component: React.FC<ComponentProps> = ({
           <Text style={styles.sectionTitle}>
             react-native-search-with-spotlight
           </Text>
-          <TouchableOpacity onPress={isSupported}>
-            <Text style={styles.sectionDescription}>
-              (a) confirm to support spotlight
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={addSearchableItems}>
-            <Text style={styles.sectionDescription}>
-              (b) add Searchable items on this device
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={deleteSearchableItems}>
-            <Text style={styles.sectionDescription}>
-              (c) delete Searchable items from this device
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={addListener}>
-            <Text style={styles.sectionDescription}>
-              (d) add Listener for a response sent from this device
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={removeListener}>
-            <Text style={styles.sectionDescription}>
-              (e) remove Listener for a response sent from this device
-            </Text>
-          </TouchableOpacity>
+          <Button
+            text="(a) confirm to support spotlight"
+            onPress={isSupported}
+          />
+          <Button
+            text="(b) add Searchable items on this device"
+            onPress={addSearchableItems}
+          />
+          <Button
+            text="(c) delete Searchable items from this device"
+            onPress={deleteSearchableItems}
+          />
+          <Button
+            text="(d) add Listener for responses from this device"
+            onPress={addListener}
+          />
+          <Button
+            text="(e) remove Listener for responses from this device"
+            onPress={removeListener}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -72,7 +67,7 @@ const makeSamples = () => {
     const sample: SearchWithSpotlight.SearchableItem = {
       title: title,
       id: id,
-      description: 'this is a sample for react-native-search-with-spotlight',
+      description: 'This is a sample for react-native-search-with-spotlight.',
       keywords: [
         'sample',
         'spotlight',
@@ -95,51 +90,63 @@ const Container: React.FC<Props> = (props) => {
   const isSupported = useCallback(async () => {
     try {
       const result = await SearchWithSpotlight.isSupported()
-      toast.show(`[isSupported] isSupported: ${result}`)
+      toast.show(`[react-native-search-with-spotlight#isSupported] ${result}`)
     } catch (error: any) {
-      toast.show(`[isSupported] isSupported: failed`)
+      toast.show(`[react-native-search-with-spotlight#isSupported] failed`)
     }
   }, [toast])
 
   const addSearchableItems = useCallback(async () => {
     try {
-      toast.show(`[addSearchableItems] now adding ...`)
+      toast.show(
+        `[react-native-search-with-spotlight#addSearchableItems] now adding ...`
+      )
       const items: SearchWithSpotlight.SearchableItem[] = makeSamples()
       await SearchWithSpotlight.addSearchableItems(items)
       toast.hideAll()
-      toast.show(`[addSearchableItems] succeed`)
+      toast.show(
+        `[react-native-search-with-spotlight#addSearchableItems] succeed`
+      )
     } catch (error: any) {
       toast.hideAll()
-      toast.show(`[addSearchableItems] failed: ${error.message}`)
+      toast.show(
+        `[react-native-search-with-spotlight#addSearchableItems] failed: ${error.message}`
+      )
     }
   }, [toast])
 
   const deleteSearchableItems = useCallback(async () => {
     try {
-      toast.show(`[deleteSearchableItems] now deleting ...`)
+      toast.show(
+        `[react-native-search-with-spotlight#deleteSearchableItems] now deleting ...`
+      )
       await SearchWithSpotlight.deleteAll()
       toast.hideAll()
-      toast.show(`[deleteSearchableItems] succeed`)
+      toast.show(
+        `[react-native-search-with-spotlight#deleteSearchableItems] succeed`
+      )
     } catch (error: any) {
       toast.hideAll()
-      toast.show(`[deleteSearchableItems] failed: ${error.message}`)
+      toast.show(
+        `[react-native-search-with-spotlight#deleteSearchableItems] failed: ${error.message}`
+      )
     }
   }, [toast])
 
   const addListener = useCallback(() => {
     subscriptionRef.current = SearchWithSpotlight.addListener((response) => {
       toast.show(
-        `[addListener] receive (id: ${response.id}, query: ${response.query})`
+        `[react-native-search-with-spotlight#addListener] receive (id: ${response.id}, query: ${response.query})`
       )
     })
     toast.show(
-      `[addListener] succeed. It can search some words on this native device`
+      `[react-native-search-with-spotlight#addListener] succeed. It can search some words on this native device.`
     )
   }, [toast])
 
   const removeListener = useCallback(() => {
     subscriptionRef.current?.remove()
-    toast.show(`[removeListener] succeed`)
+    toast.show(`[react-native-search-with-spotlight#removeListener] succeed`)
   }, [toast])
 
   return (
@@ -169,15 +176,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#000000',
-  },
-  sectionDescription: {
-    marginTop: 16,
-    marginBottom: 16,
-    marginLeft: 0,
-    marginRight: 0,
-    fontSize: 18,
-    fontWeight: '400',
     color: '#000000',
   },
 })

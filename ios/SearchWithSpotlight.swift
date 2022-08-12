@@ -58,6 +58,18 @@ class SearchWithSpotlight: RCTEventEmitter {
     }
 }
 
+// for Turbo modules (React Native 0.68)
+extension SearchWithSpotlight {
+    
+    override func startObserving() {
+        hasListeners = true
+    }
+    
+    override func stopObserving() {
+        hasListeners = false
+    }
+}
+
 // for iOS Native
 extension SearchWithSpotlight{
     
@@ -73,7 +85,7 @@ extension SearchWithSpotlight{
     @objc(handle:)
     static public func handle(_ userActivity: NSUserActivity) -> Bool {
         var identifier: String? = nil
-        if userActivity.activityType == CSSearchableItemActionType{
+        if userActivity.activityType == CSSearchableItemActionType {
             identifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String
         }
         var query: String? = nil
@@ -82,18 +94,6 @@ extension SearchWithSpotlight{
         }
         let obj = SearchWithSpotlight.shared
         return obj.sendIdentifierToReactNative(identifier: identifier, query: query)
-    }
-}
-
-// for React Native 0.68, Turbo modules
-extension SearchWithSpotlight {
-    
-    override func startObserving() {
-        hasListeners = true
-    }
-    
-    override func stopObserving() {
-        hasListeners = false
     }
 }
 
@@ -109,7 +109,7 @@ extension SearchWithSpotlight {
     
     func sendIdentifierToReactNative(identifier: String? = nil,
                                      query: String? = nil) -> Bool {
-        if !hasListeners{
+        if !hasListeners {
             return false
         }
         
