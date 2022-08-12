@@ -11,18 +11,15 @@ A React Native module to search with Spotlight for iOS.
 
 ## Installation
 
-
+<!--
 ```sh
 yarn add https://github.com/mitsuharu/react-native-search-with-spotlight.git
 ```
+-->
 
-<!--
 ```sh
 yarn add react-native-search-with-spotlight
-# or
-npm install --save react-native-search-with-spotlight
 ```
--->
 
 ## Usage
 
