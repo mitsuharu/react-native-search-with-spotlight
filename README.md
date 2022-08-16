@@ -4,10 +4,14 @@ A React Native module to search with Spotlight for iOS.
 
 ![react-native-search-with-spotlight](readme/sample.gif) 
 
-## Futures
+## Features
 
 - It supports new architecture with React Native 0.68+.
 
+
+## Requirement
+
+- React Native 0.68+
 
 ## Installation
 
