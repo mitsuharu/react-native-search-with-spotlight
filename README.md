@@ -36,7 +36,7 @@ const isSupported = await SearchWithSpotlight.isSupported()
 
 ### iOS
 
-(OPTIONAL) When use iOS 10+, you can obtain a search query. It adds `CoreSpotlightContinuation` key to `info.plit` file with a Boolean value of `YES`.
+(OPTIONAL) When use iOS 10+, you can obtain a search query. It adds `CoreSpotlightContinuation` key to `Info.plist` file with a Boolean value of `YES`.
 
 ```
 <key>CoreSpotlightContinuation</key>
