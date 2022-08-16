@@ -1,6 +1,6 @@
 {
   "name": "react-native-search-with-spotlight",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A React Native module to search with Spotlight for iOS.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -34,7 +34,7 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "spotlight"
   ],
   "repository": "https://github.com/mitsuharu/react-native-search-with-spotlight",
   "author": "Mitsuharu Emoto <mthr1982@gmail.com> (https://github.com/mitsuharu)",

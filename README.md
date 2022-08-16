@@ -6,7 +6,7 @@ A React Native module to search with Spotlight for iOS.
 
 ## Futures
 
-- It suports new architecture with React Native > 0.68.
+- It supports new architecture with React Native 0.68+.
 
 
 ## Installation
